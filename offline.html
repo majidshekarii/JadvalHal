@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>جدول‌حل فارسی ۵۰×۵۰</title>
+<style>
+:root{--bg:#e8eef3;--pane:#fff;--ink:#14243b;--mut:#5f7189;--line:#b9c7d6;--blk:#cfdae5;--hl:#c4e4ee;--cur:#f4b73a;--acc:#1b3a6b;--ok:#0e8a86;--bad:#d1432f;--hd:#1b3a6b;--good:#bfeccb;--badbg:#f8c9c2;--s:34px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1622;--pane:#152336;--ink:#e6eef8;--mut:#93a6bd;--line:#2b405a;--blk:#0a111b;--hl:#1c4258;--cur:#b98412;--acc:#8fb4ee;--ok:#4fd1c5;--bad:#ff8a77;--hd:#102036;--good:#1f5a3c;--badbg:#6e2c27}}
+:root[data-theme="dark"]{--bg:#0d1622;--pane:#152336;--ink:#e6eef8;--mut:#93a6bd;--line:#2b405a;--blk:#0a111b;--hl:#1c4258;--cur:#b98412;--acc:#8fb4ee;--ok:#4fd1c5;--bad:#ff8a77;--hd:#102036;--good:#1f5a3c;--badbg:#6e2c27}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Vazirmatn,Tahoma,"Noto Sans Arabic","Segoe UI",system-ui,sans-serif;overflow:hidden}
+#app{height:var(--vh,100%);display:flex;flex-direction:column}
+header{background:var(--hd);color:#fff;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+header h1{font-size:17px;margin:0 0 0 6px;font-weight:800}
+header small{opacity:.8;font-size:12px}
+button{font:inherit;cursor:pointer;border:0}
+header button{background:rgba(255,255,255,.14);color:#fff;border-radius:8px;padding:5px 10px;font-size:13px}
+header button:hover,header button:focus-visible{background:rgba(255,255,255,.3)}
+header .go{background:var(--cur);color:#14243b;font-weight:700}
+#stage{position:relative;flex:1;min-height:0}
+#gw{height:100%;overflow:auto;-webkit-overflow-scrolling:touch}
+#grid{display:grid;grid-template-columns:repeat(var(--n,50),var(--s));grid-auto-rows:var(--s);direction:rtl;width:max-content;margin:6px}
+.x{background:var(--blk)}
+.c{position:relative;box-sizing:border-box;background:var(--pane);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.c b{font-size:calc(var(--s)*.54);font-weight:700;line-height:1}
+.c i{position:absolute;top:1px;right:3px;font-style:normal;font-size:calc(var(--s)*.27);color:var(--mut);line-height:1}
+.c.hl{background:var(--hl)}
+.c.cur{background:var(--cur);color:#14243b;outline:2px solid var(--cur);outline-offset:-2px;z-index:1}
+#sheet{display:none;position:absolute;inset:0;background:var(--bg);overflow:auto;padding:10px;gap:14px;grid-template-columns:1fr 1fr}
+#sheet.open{display:grid;align-content:start}
+#sheet h3{margin:0 0 6px;color:var(--acc);font-size:15px}
+#sheet ol{margin:0;padding:0;list-style:none}
+#sheet li{display:flex;gap:8px;padding:6px 8px;border-radius:8px;font-size:13px;line-height:1.6;cursor:pointer}
+#sheet li:hover,#sheet li.on{background:var(--hl)}
+#sheet em{font-style:normal;font-weight:800;color:var(--acc);min-width:1.8em}
+#sheet small{color:var(--mut)}
+#bar{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--pane);border-top:1px solid var(--line);min-height:44px}
+#bar div{flex:1;font-size:14px;line-height:1.5}
+#bar b{color:var(--acc);display:inline-block;margin-inline-end:10px}
+#bar button{background:var(--blk);color:var(--ink);border-radius:8px;width:34px;height:34px;font-size:18px}
+#win{display:none;position:fixed;inset:0;z-index:50;background:rgba(10,20,35,.6);align-items:center;justify-content:center;padding:20px}
+#win.show{display:flex}
+#win .box{background:var(--pane);color:var(--ink);border-radius:20px;padding:26px 24px 22px;max-width:320px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.35);border-top:6px solid var(--cur)}
+#win .st{font-size:44px;line-height:1;color:var(--cur)}
+#win h2{margin:8px 0 6px;font-size:22px;color:var(--acc)}
+#win p{margin:0 0 18px;font-size:14px;line-height:1.8;color:var(--mut)}
+#win button{background:var(--hd);color:#fff;border-radius:12px;padding:11px 22px;font-size:15px;font-weight:700;width:100%}
+#inp{position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0;font-size:16px;pointer-events:none}
+#app.home .gm{display:none}
+#app:not(.home) .hm{display:none}
+#home{flex:1;min-height:0;overflow:auto;padding:2px 12px 28px}
+#home h3{margin:18px 0 8px;font-size:14px;color:var(--acc)}
+.lv{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px}
+.lv button{aspect-ratio:1;position:relative;background:var(--pane);color:var(--ink);border:2px solid var(--line);border-radius:12px;font-size:16px;font-weight:700}
+.lv button.p{border-color:var(--cur)}
+.lv button.d{background:var(--good);border-color:var(--ok)}
+.lv button.d::after{content:'✓';position:absolute;top:2px;right:6px;font-size:11px;color:var(--ok)}
+#win button.alt{background:transparent;color:var(--acc);border:1.5px solid var(--line);margin-top:8px}
+#intro{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:env(safe-area-inset-top,0px) 20px env(safe-area-inset-bottom,0px);overflow:hidden;color:#fff;background:radial-gradient(circle at 50% 28%,#2b5cab 0,#1b3a6b 46%,#0c1a31 100%);transition:opacity .45s,transform .45s}
+#intro.out{opacity:0;transform:scale(1.05);pointer-events:none}
+#intro .ig{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:38px 38px;-webkit-mask-image:radial-gradient(circle at 50% 40%,#000 0,transparent 75%);mask-image:radial-gradient(circle at 50% 40%,#000 0,transparent 75%)}
+#intro .fl{position:absolute;font-size:64px;font-weight:800;opacity:.07;animation:fl 7s ease-in-out infinite alternate}
+#intro>*:not(.ig):not(.fl){position:relative}
+.logo{--t:clamp(54px,17vw,76px);display:grid;grid-template-columns:repeat(4,var(--t));grid-auto-rows:var(--t);gap:7px;direction:rtl;animation:fl 4s ease-in-out infinite alternate}
+.tile{position:relative!important;display:flex;align-items:center;justify-content:center;background:#fff;color:#1b3a6b;border-radius:16px;font-size:calc(var(--t)*.56);font-weight:800;box-shadow:0 6px 0 #9db3d3,0 14px 24px rgba(0,0,0,.35);animation:pop .55s cubic-bezier(.2,1.5,.4,1) both;animation-delay:calc(var(--i)*.13s)}
+.tile i{position:absolute;top:4px;right:7px;font-style:normal;font-size:calc(var(--t)*.2);font-weight:700;color:#5f7189}
+.tile.hot{background:#f4b73a;box-shadow:0 6px 0 #b98412,0 14px 24px rgba(0,0,0,.35)}
+.t-h{grid-column:4;grid-row:1}.t-j{grid-column:1;grid-row:2}.t-d{grid-column:2;grid-row:2}.t-w{grid-column:3;grid-row:2}.t-l{grid-column:4;grid-row:2}
+#intro h1{margin:30px 0 4px;font-size:clamp(42px,13vw,66px);font-weight:800;line-height:1.2;text-shadow:0 4px 18px rgba(0,0,0,.4)}
+#intro h1::after{content:'';display:block;width:64px;height:5px;border-radius:3px;background:#f4b73a;margin:10px auto 0}
+#intro .tag{margin:12px 0 0;font-size:17px;color:rgba(255,255,255,.85)}
+#intro .sub{margin:6px 0 0;font-size:14px;color:rgba(255,255,255,.6)}
+.cta{margin-top:34px;background:#f4b73a;color:#14243b;font-size:23px;font-weight:800;padding:14px 70px;border-radius:999px;box-shadow:0 7px 0 #b98412,0 16px 30px rgba(0,0,0,.35);animation:pulse 2.2s ease-in-out infinite}
+.cta:active{transform:translateY(5px);box-shadow:0 2px 0 #b98412,0 6px 14px rgba(0,0,0,.35)}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.6) rotate(-8deg)}to{opacity:1;transform:none}}
+@keyframes fl{from{transform:translateY(-6px)}to{transform:translateY(8px)}}
+@keyframes pulse{50%{filter:brightness(1.12)}}
+@media (prefers-reduced-motion:reduce){#intro *{animation:none!important}}
+#app:not(.mini) .mn{display:none}
+#app.mini .zm{display:none}
+.mini-card{margin-top:22px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.22);border-radius:18px;padding:11px 18px;color:#fff;text-align:right}
+.mini-card:active{background:rgba(255,255,255,.2)}
+.mini-card b{display:block;font-size:19px}
+.mini-card .t{font-size:13px;color:rgba(255,255,255,.75)}
+.mg{display:grid;grid-template-columns:repeat(5,9px);gap:2px;direction:ltr}
+.mg u{display:block;width:9px;height:9px;border-radius:2px;background:rgba(255,255,255,.14)}
+.mg u.h{background:#fff}
+header .bk{order:9;margin-right:auto;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.5);color:#fff;font-weight:700;font-size:13px;padding:4px 16px;border-radius:999px}
+header .bk:hover,header .bk:focus-visible{background:rgba(255,255,255,.3)}
+header .bk:active{transform:translateY(1px)}
+header #pr{order:10;flex-basis:100%}
+.cta,.mini-card{width:min(250px,72vw);padding-left:0;padding-right:0}
+.mini-card{margin-top:18px;display:flex;align-items:center;justify-content:center;gap:12px;background:#a5dfba;border:0;border-radius:999px;padding-top:14px;padding-bottom:14px;color:#0d3b26;box-shadow:0 7px 0 #5fa87d,0 16px 30px rgba(0,0,0,.3)}
+.mini-card:active{background:#a5dfba;transform:translateY(5px);box-shadow:0 2px 0 #5fa87d,0 6px 14px rgba(0,0,0,.3)}
+.mini-card b{font-size:23px;font-weight:800}
+.mg u{background:rgba(13,59,38,.22)}
+.mg u.h{background:#fff}
+.mg{grid-template-columns:repeat(5,5px);gap:1.5px}
+.mg u{width:5px;height:5px;border-radius:1px}
+.mini-card{height:54px;padding-top:0;padding-bottom:0}
+@media (max-height:700px){.logo{--t:clamp(44px,14vw,60px)}#intro h1{margin-top:16px}.cta{margin-top:20px}.mini-card{margin-top:14px}}
+#stage{isolation:isolate}
+#sheet{z-index:5}
+.c.good{background:var(--good)}
+.c.bad{background:var(--badbg)}
+@media (max-width:520px){#sheet{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app" class="home">
+  <header class="hm"><button class="bk" onclick="goBack()">بازگشت</button><h1>جدول‌حل</h1><small id="hp"></small><button class="go" onclick="resume()">ادامه</button></header>
+  <div id="home" class="hm"></div>
+  <header class="gm">
+    <h1>جدول‌حل </h1>
+    <button class="bk" onclick="goBack()">بازگشت</button><button class="mn" onclick="openMini()">جدید</button>
+    <button onclick="$('#sheet').classList.toggle('open')">سرنخ‌ها</button>
+    <button class="zm" onclick="zoom(-4)" aria-label="کوچک‌نمایی">−</button>
+    <button class="zm" onclick="zoom(4)" aria-label="بزرگ‌نمایی">+</button>
+    <small id="pr"></small>
+  </header>
+  <div id="stage" class="gm"><div id="gw"><div id="grid"></div></div><div id="sheet"></div></div>
+  <div id="bar" class="gm"><button onclick="nextWord(-1)" aria-label="قبلی">›</button><div><b id="cn"></b><span id="ct"></span></div><button onclick="nextWord(1)" aria-label="بعدی">‹</button></div>
+  <div id="intro">
+  <div class="ig"></div>
+  <span class="fl" style="top:9%;right:9%">ب</span><span class="fl" style="top:16%;left:8%;animation-delay:-2s">ک</span><span class="fl" style="bottom:20%;right:12%;animation-delay:-4s">ر</span><span class="fl" style="bottom:11%;left:14%;animation-delay:-1s">پ</span><span class="fl" style="top:46%;right:3%;animation-delay:-3s">گ</span><span class="fl" style="top:55%;left:3%;animation-delay:-5s">س</span>
+  <div class="logo" aria-hidden="true">
+    <div class="tile t-h" style="--i:4"><i>۲</i>ح</div>
+    <div class="tile t-j" style="--i:0"><i>۱</i>ج</div><div class="tile t-d" style="--i:1">د</div><div class="tile t-w" style="--i:2">و</div><div class="tile t-l hot" style="--i:3">ل</div>
+  </div>
+  <h1>جدول‌حل</h1>
+  <p class="tag">بازی فکری کلمه‌های متقاطع</p>
+  <p class="sub" id="ip"></p>
+  <button class="cta" onclick="enter()">ورود</button>
+  <button class="mini-card" onclick="openMini()"><span class="mg"></span><b>جدولک</b></button>
+</div>
+<div id="win"><div class="box"><div class="st">★</div><h2>تبریک!</h2><p id="wm"></p><button id="nx" onclick="nextLevel()">مرحله بعد</button><button class="alt" id="al" onclick="goBack()">فهرست مراحل</button></div></div>
+  <input id="inp" type="text" dir="rtl" lang="fa" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="تایپ حرف">
+</div>
+<script>
+const RAW=`تهران:شهری که آقامحمدخان آن را پایتخت کرد
+اصفهان:نصف جهان
+شیراز:شهر حافظ و سعدی
+تبریز:مرکز آذربایجان شرقی
+مشهد:شهر امام رضا
+دماوند:آتشفشان خفته نزدیک تهران
+خزر:دریای شمال ایران
+کویر:دشت خشک و نمکزار
+خلیج:… فارس
+فردوسی:سراینده شاهنامه
+حافظ:لسان‌الغیب شیراز
+سعدی:نویسنده بوستان
+مولوی:سراینده مثنوی معنوی
+نظامی:سراینده لیلی و مجنون
+خیام:رباعی‌سرای نیشابور
+شاهنامه:حماسه ملی ایرانیان
+گلستان:کتابی از سعدی
+رستم:پهلوان هفت‌خوان
+سهراب:فرزند رستم
+سیمرغ:پرنده افسانه‌ای البرز
+نوروز:جشن آغاز بهار
+یلدا:بلندترین شب سال
+سفره:هفت‌سین روی آن چیده می‌شود
+عید:روز شادی و جشن
+بهار:فصل شکوفه
+تابستان:فصل گرما
+پاییز:فصل برگ‌ریزان
+زمستان:فصل سرما
+خورشید:نزدیک‌ترین ستاره به زمین
+ماه:تنها قمر طبیعی زمین
+زمین:سیاره ما
+مریخ:سیاره سرخ
+زهره:همنام ناهید
+مشتری:غول منظومه شمسی
+زحل:سیاره حلقه‌دار
+ستاره:چشمک‌زن آسمان شب
+کهکشان:راه شیری یکی از آن‌هاست
+آسمان:سقف بی‌ستون
+باران:بارش آب
+برف:دانه‌های سفید زمستان
+ابر:باران از آن می‌بارد
+رعد:غرش آسمان
+برق:درخشش پیش از رعد
+باد:جابه‌جایی هوا بر اثر اختلاف فشار
+طوفان:باد سهمگین
+زلزله:لرزش زمین
+آتش:نماد مقدس زرتشتیان
+آب:ترکیب دو هیدروژن و یک اکسیژن
+خاک:لایه سطحی پوسته زمین
+کوه:سربرافراشته بر دشت
+رود:آب روان
+دریا:پهنه آبی
+جنگل:انبوه درختان
+درخت:ریشه و شاخ دارد
+گل:اندام زایشی گیاه
+لاله:گل نماد شهدا
+سیب:میوه‌ای که نیوتن را به فکر انداخت
+انار:میوه یلدا
+هندوانه:میوه سبز با دل سرخ
+انگور:مادر کشمش
+خربزه:میوه تابستانی شیرین
+پرتقال:میوه‌ای نارنجی
+گیلاس:میوه سرخ و ریز
+زردآلو:مادر قیسی
+بادام:شکوفه‌اش صورتی است
+پسته:خشکبار رفسنجان
+زعفران:طلای سرخ
+چای:نوشیدنی لاهیجان
+نان:خوراک هر روز
+برنج:چلو از آن می‌شود
+کباب:غذا بر سیخ
+آش:خوراک غلیظ ایرانی
+حلوا:شیرینی آرد و روغن
+عسل:شیره زنبور
+زنبور:عسل‌ساز
+پروانه:حشره بالدار رنگین
+عقاب:شکاری بلندپرواز
+کبوتر:نماد صلح
+بلبل:عاشق گل
+طاووس:پرنده پرنقش
+شیر:پادشاه جنگل
+پلنگ:گربه‌سان خالدار
+یوزپلنگ:تندترین جانور زمین
+گوزن:شاخ‌دار جنگل
+خرس:خوابگرد زمستانی
+روباه:حیوان مکار قصه‌ها
+گرگ:دشمن گوسفند
+اسب:یار سوارکار
+شتر:کشتی بیابان
+فیل:خرطوم‌دار غول‌پیکر
+زرافه:گردن‌دراز
+دلفین:پستاندار باهوش دریا
+نهنگ:غول دریاها
+ماهی:شناگر آبزی
+لاکپشت:حیوان کندرو با خانه روی پشت
+مورچه:حشره کوشا
+کتاب:همدم خواندن
+قلم:ابزار نوشتن
+مداد:پاک‌کن می‌خواهد
+دفتر:مشق در آن نوشته می‌شود
+مدرسه:جای درس دانش‌آموز
+دانشگاه:آموزش عالی
+معلم:آموزگار
+دانش:ضد نادانی
+فرهنگ:آداب و رسوم یک ملت
+تاریخ:سرگذشت گذشتگان
+جغرافیا:علم شناخت زمین
+ریاضی:علم عدد و شکل
+فیزیک:علم نیرو و انرژی
+شیمی:علم ترکیب مواد
+رایانه:کامپیوتر
+اینترنت:شبکه جهانی
+تلفن:وسیله مکالمه از دور
+تلویزیون:جعبه جادو
+دوربین:ثبت‌کننده تصویر
+موسیقی:هنر آهنگ
+سنتور:ساز چکشی ایرانی
+تار:ساز مضرابی دستگاه‌ها
+دف:ساز ضربی چنبره‌ای
+نی:ساز مولانا
+کمانچه:ساز آرشه‌ای
+نقاشی:هنر رنگ و بوم
+فرش:بافته کف اتاق
+سفال:ظرف گلی پخته
+پاسارگاد:آرامگاه کوروش
+کوروش:بنیانگذار هخامنشیان
+داریوش:شاه کتیبه بیستون
+ایران:سرزمین آریاییان
+وطن:میهن
+آزادی:برج نماد تهران
+دوستی:پیوند دو یار
+مهربانی:خوی نیک
+صداقت:راستگویی
+شجاعت:دلیری
+امید:روشنی دل
+عشق:دلباختگی
+شادی:ضد غم
+آرامش:آسودگی خاطر
+سلامت:تندرستی
+ورزش:تمرین بدن
+فوتبال:محبوب‌ترین ورزش جهان
+والیبال:توپ و تور
+شطرنج:بازی شاه و وزیر
+کشتی:ورزش روی تشک
+پیاده:مقابل سواره
+سلجوقی:سلسله‌ای که نظام‌الملک وزیرش بود
+بیستون:کوهی با کتیبه داریوش در کرمانشاه
+کرمانشاه:مرکز استان دارای طاق‌بستان
+ارگ:دژ تاریخی بم
+بوستان:کتاب منظوم سعدی در ده باب
+مثنوی:قالب شعری با قافیه‌های جفت
+غزل:قالب شعری حافظ
+رباعی:قالب چهار مصراعی خیام
+قصیده:شعر بلند ستایشی
+عروض:علم وزن شعر
+بلاغت:دانش رسایی سخن
+استعاره:تشبیهی که یک سویش حذف شده
+تشبیه:همانندسازی دو چیز در سخن
+جناس:همانندی لفظی در شعر
+تلمیح:اشاره به داستان یا آیه در شعر
+اقلیم:ناحیه‌ای با آب‌وهوای یکسان
+فلات:زمین مرتفع و هموار
+هرمز:تنگه‌ای میان خلیج فارس و دریای عمان
+عمان:دریایی در جنوب ایران
+ارس:رود مرزی شمال غرب
+کارون:پرآب‌ترین رود ایران
+زاینده:… رود؛ شریان اصفهان
+اروند:رود مرزی ایران و عراق
+مرداب:آب راکد و گل‌آلود
+آبشار:فروریزش آب از بلندی
+تالاب:دریاچه کم‌عمق پرگیاه
+ارومیه:دریاچه نمکی شمال غرب
+هخامنشی:سلسله سازنده تخت جمشید
+ساسانی:آخرین سلسله پیش از اسلام
+اشکانی:سلسله پارتیان
+صفوی:سلسله‌ای که تشیع را رسمی کرد
+قاجار:سلسله پس از زندیه
+پهلوی:زبان ایران میانه
+مشروطه:انقلابی که مجلس را بنیان نهاد
+رصدخانه:مرکز مشاهده ستارگان
+دماسنج:سنجه گرما
+جاذبه:نیرویی که ما را روی زمین نگه می‌دارد
+اتم:ذره‌ای با پروتون و الکترون
+الکترون:ذره دارای بار منفی
+مولکول:ترکیب چند اتم
+فتوسنتز:غذاسازی گیاه با نور
+گلبول:یاخته خونی
+هموگلوبین:رنگدانه حمل اکسیژن در خون
+پروتئین:ماده سازنده ماهیچه
+ویتامین:ریزمغذی ضروری بدن
+اکسیژن:گاز تنفسی
+هیدروژن:سبک‌ترین عنصر
+نیتروژن:گاز فراوان هواکره
+کربن:عنصر سازنده الماس
+الماس:سخت‌ترین سنگ طبیعی
+فیروزه:سنگ آبی نیشابور
+نیشابور:زادگاه خیام
+یاقوت:سنگ گران‌بهای سرخ
+مرجان:زیور برگرفته از جانور دریایی
+صدف:خانه مروارید
+مروارید:گوهر دریا
+هرم:سازه سه‌گوش مصری
+تمدن:زندگی شهری و پیشرفته
+باستان:کهن
+تندیس:مجسمه
+مینیاتور:نگارگری ریز و رنگین
+خوشنویسی:هنر زیبانویسی
+نستعلیق:عروس خطوط
+گنبد:بام نیم‌کره‌ای مسجد
+مناره:برج کنار مسجد
+ایوان:فضای سرپوشیده رو به حیاط
+بادگیر:خنک‌کننده بام‌های یزد
+یزد:شهر بادگیرها
+کاشان:شهر باغ فین
+صبر:تلخ است ولی بر شیرین دارد
+اقتصاد:علم تولید و مصرف
+تورم:افزایش عمومی قیمت‌ها
+بورس:بازار سهام
+ارز:پول کشورهای دیگر
+دموکراسی:حکومت مردم
+فلسفه:دوستداری دانایی
+منطق:علم درست‌اندیشی
+اخلاق:دانش نیک و بد کردار
+کرمان:استان جنوب شرقی با شهر ماهان
+ارومیه:مرکز آذربایجان غربی
+اهواز:مرکز خوزستان
+رشت:مرکز گیلان
+ساری:مرکز مازندران
+قم:شهر حرم حضرت معصومه
+زنجان:شهر چاقوسازی
+همدان:شهر آرامگاه بوعلی
+اردبیل:مرکز استان سبلان
+بوشهر:بندری نخلستانی در جنوب
+بندرعباس:مرکز هرمزگان
+یاسوج:مرکز کهگیلویه و بویراحمد
+سمنان:استان شمال کویر مرکزی
+ایلام:استان مرزی غربی
+بیرجند:مرکز خراسان جنوبی
+قزوین:پایتخت صفویان پیش از اصفهان
+اراک:مرکز استان مرکزی
+گرگان:مرکز گلستان
+زاهدان:مرکز سیستان و بلوچستان
+چابهار:بندر اقیانوسی ایران
+کیش:جزیره گردشگری خلیج فارس
+قشم:بزرگ‌ترین جزیره ایران
+بم:شهر خرما و ارگ
+شوش:پایتخت باستانی عیلام
+جمشید:شاه افسانه‌ای جام
+فریدون:پادشاه پیروز بر ضحاک
+ضحاک:ماردوش شاهنامه
+کاوه:آهنگر قیام‌کننده
+سیاوش:شاهزاده‌ای که از آتش گذشت
+اسفندیار:رویین‌تن شاهنامه
+بیژن:عاشق منیژه
+منیژه:دختر افراسیاب
+زال:پدر رستم
+رخش:اسب رستم
+افراسیاب:شاه توران
+زرتشت:پیامبر ایران باستان
+اوستا:کتاب مقدس زرتشتیان
+مهر:ایزد پیمان و نور
+آناهیتا:ایزدبانوی آب
+عطار:عارف نیشابوری و سراینده الهی‌نامه
+سنایی:سراینده حدیقه
+رودکی:پدر شعر فارسی
+فرخی:شاعر سیستانی دربار غزنویان
+منوچهری:شاعر مسمط و وصف طبیعت
+خاقانی:شاعر شروانی و قصیده‌سرا
+جامی:آخرین شاعر بزرگ کلاسیک
+بیهقی:نویسنده تاریخ مسعودی
+نیما:بنیان‌گذار شعر نو
+شاملو:شاعر هوای تازه
+فروغ:شاعر تولدی دیگر
+اخوان:سراینده زمستان با تخلص امید
+هدایت:نویسنده بوف کور
+دهخدا:نویسنده لغت‌نامه
+پروین:شاعر اعتصامی
+شهریار:سراینده حیدربابایه سلام
+بوعلی:پزشک نویسنده قانون
+رازی:زکریا، پزشک بزرگ ایران
+خوارزمی:پدر جبر
+بیرونی:دانشمند اندازه‌گیر زمین
+نیوتن:دانشمند قانون جاذبه
+انیشتین:پدر نسبیت
+گالیله:دانشمند تلسکوپ و زمین متحرک
+داروین:پدر نظریه تکامل
+پاستور:مخترع واکسن هاره
+ادیسون:مخترع لامپ
+تسلا:مخترع جریان متناوب
+جرم:کمیتی که با کیلوگرم سنجیده می‌شود
+نیرو:کمیت برداری با واحد نیوتن
+انرژی:توانایی انجام کار
+سرعت:مسافت بر زمان
+شتاب:تغییر سرعت در زمان
+حرارت:انرژی گرمایی
+نور:سریع‌ترین پدیده جهان
+صوت:موج مکانیکی شنیدنی
+آهنربا:جذب‌کننده آهن
+مغناطیس:خاصیت آهنربا
+باتری:ذخیره‌کننده برق
+مدار:مسیر بسته جریان برق
+ترانزیستور:قطعه اصلی تراشه
+پردازنده:مغز رایانه
+حافظه:جای ذخیره داده
+الگوریتم:روش گام‌به‌گام حل مسئله
+شبکه:اتصال چند رایانه
+آنتن:دریافت‌کننده امواج
+ماهواره:جسم گردنده به دور زمین
+موشک:وسیله پرتاب به فضا
+فضانورد:مسافر کیهان
+تلسکوپ:دوربین ستاره‌نگر
+میکروسکوپ:دوربین ریزنما
+باکتری:یاخته ریز و بیماری‌زا
+ویروس:عامل آنفلوانزا
+یاخته:واحد سازنده موجود زنده
+ژن:حامل صفات ارثی
+مغز:فرمانده بدن
+قلب:تلمبه خون
+ریه:اندام تنفس
+کبد:بزرگ‌ترین غده بدن
+کلیه:تصفیه‌کننده خون
+استخوان:اسکلت بدن
+پوست:بزرگ‌ترین اندام بدن
+شریان:رگ خون‌رسان از قلب
+چشم:اندام بینایی
+گوش:اندام شنوایی
+آهو:جانور چابک و چشم‌سیاه
+خرگوش:بلندگوش جهنده
+سنجاب:جانور درختی دم‌پرپشت
+کرگدن:شاخ‌دار آفریقایی
+کانگورو:کیسه‌دار استرالیا
+پنگوئن:پرنده قطبی ناپرواز
+شترمرغ:بزرگ‌ترین پرنده
+جغد:پرنده شب‌بیدار
+هدهد:پیک سلیمان
+قناری:پرنده خوش‌آوای زرد
+مرغابی:پرنده شناگر
+خروس:ساعت زنده روستا
+کوسه:شکارچی دندان‌تیز دریا
+اختاپوس:جانور هشت‌پا
+خرچنگ:جانور کج‌رو
+قورباغه:دوزیست نق‌نقو
+مار:خزنده بی‌پا
+تمساح:خزنده دهان‌گشاد
+حلزون:جانور کندرو صدف‌دار
+عنکبوت:تارتن
+شاهین:شکاری رام‌شدنی
+قو:پرنده سپید دریاچه
+نارنج:میوه ترش و شکوفه بهار
+لیمو:میوه ترش زرد
+گلابی:میوه قطره‌مانند
+هلو:میوه کرک‌دار
+آلبالو:میوه ترش خورشت
+انجیر:میوه بهشتی
+خرما:میوه نخل
+توت:میوه درخت ابریشم
+هویج:ریشه نارنجی
+پیاز:اشک‌آور آشپزخانه
+سیر:ضدویروس خوراکی
+کدو:سبزی دراز و سبز
+بادمجان:سبزی بنفش خورشت
+گوجه:میوه سرخ شهرت سبزی
+فلفل:ادویه تند
+دارچین:ادویه پوست درخت
+زنجبیل:ریشه تند دارویی
+هل:ادویه چای
+نعنا:سبزی خوش‌بو
+ریحان:سبزی کنار سفره
+شوید:سبزی باقلاپلو
+کاهو:برگ سالاد
+ماست:لبنیات سپید و ترش
+پنیر:فراورده شیر صبحانه
+کره:چربی صبحانه
+دوغ:نوشیدنی ترش ایرانی
+شربت:نوشیدنی شیرین و سرد
+فالوده:دسر شیرازی
+بستنی:دسر یخی
+باقلوا:شیرینی لایه‌ای
+گز:شیرینی اصفهان
+سوهان:شیرینی قم
+قیمه:خورشت لپه و سیب‌زمینی
+فسنجان:خورشت انار و گردو
+دلمه:غذای برگ و پر
+کوکو:غذای تخم‌مرغ و سبزی
+عدس:حبوبات عدس‌پلو
+نخود:حبوبات گرد
+لوبیا:حبوبات سرخ یا سفید
+خانه:جای زندگی
+مسجد:معبد مسلمانان
+بازار:محل خرید و فروش
+کاروانسرا:اقامتگاه کاروان‌ها
+پل:گذرگاه رود
+خیابان:معبر شهر
+ماشین:وسیله چرخ‌دار موتوری
+هواپیما:پرنده فلزی
+قطار:وسیله ریلی
+دوچرخه:وسیله پدالی دوچرخ
+تئاتر:هنر نمایش روی صحنه
+سینما:هنر هفتم
+فیلم:ساخته سینما
+بازیگر:نقش‌آفرین
+کارگردان:هدایت‌کننده فیلم
+آواز:خوانندگی
+ترانه:شعر آهنگ
+پیانو:ساز با کلاویه
+ویولن:ساز آرشه‌ای کوچک
+گیتار:ساز شش‌سیم غربی
+تنبک:ساز ضربی چوبی
+عود:ساز کاسه‌ای بدون پرده
+ارکستر:گروه بزرگ نوازندگان
+اپرا:نمایش آوازی
+تنیس:ورزش راکت و توپ زرد
+بسکتبال:توپ و حلقه
+هندبال:ورزش توپ با دست و دروازه
+کاراته:هنر رزمی ژاپنی
+جودو:ورزش رزمی نرم‌خو
+تکواندو:هنر رزمی کره‌ای
+شنا:حرکت در آب
+المپیک:بازی‌های چهارساله جهان
+مدال:جایزه روی سینه
+قهرمان:برنده نهایی
+داور:قاضی بازی
+عدالت:دادگری
+قانون:مجموعه مقررات
+دادگاه:محل قضاوت
+وکیل:مدافع در دادگاه
+پزشک:درمانگر بیماران
+مهندس:سازنده و طراح فنی
+پرستار:یار بیمار
+بیمارستان:جای درمان
+داروخانه:جای فروش دارو
+دارو:درمان‌کننده شیمیایی
+خلبان:راننده هواپیما
+بازرگان:تاجر
+واژه:کلمه
+دستور:علم قواعد زبان
+نگارش:هنر نوشتن
+ترجمه:برگردان متن
+نقطه:نشان پایان جمله
+فروردین:ماه آغازین بهار
+اردیبهشت:ماه دوم سال شمسی
+خرداد:ماه آخر بهار
+تیر:ماه نخست تابستان
+مرداد:ماه میانی تابستان
+شهریور:ماه آخر تابستان
+آبان:ماه دوم پاییز
+آذر:ماه آخر پاییز
+دی:ماه نخست زمستان
+بهمن:ماه میانی زمستان
+اسفند:ماه پایانی سال
+قرن:صد سال
+دهه:ده سال
+پاریس:پایتخت فرانسه
+لندن:پایتخت بریتانیا
+برلین:پایتخت آلمان
+رم:پایتخت ایتالیا
+مادرید:پایتخت اسپانیا
+مسکو:پایتخت روسیه
+پکن:پایتخت چین
+توکیو:پایتخت ژاپن
+آنکارا:پایتخت ترکیه
+قاهره:پایتخت مصر
+بغداد:پایتخت عراق
+ریاض:پایتخت عربستان
+دهلی:پایتخت هند
+کابل:پایتخت افغانستان
+بیروت:پایتخت لبنان
+دمشق:پایتخت سوریه
+آتن:پایتخت یونان
+وین:پایتخت اتریش
+اوتاوا:پایتخت کانادا
+کانبرا:پایتخت استرالیا
+فرانسه:کشور برج ایفل
+آلمان:کشور بزرگ‌ترین اقتصاد اروپا
+ایتالیا:کشوری به شکل چکمه
+اسپانیا:کشور فلامنکو
+ژاپن:سرزمین خورشید تابان
+چین:سرزمین دیوار بزرگ
+هند:سرزمین تاج‌محل
+روسیه:بزرگ‌ترین کشور جهان
+برزیل:کشور سامبا
+مصر:سرزمین فراعنه
+ترکیه:کشور استانبول
+عراق:همسایه غربی ایران
+افغانستان:همسایه شرقی ایران
+پاکستان:همسایه جنوب شرقی ایران
+ارمنستان:همسایه شمال غربی ایران
+ترکمنستان:همسایه شمال شرقی ایران
+قطر:میزبان جام جهانی ۲۰۲۲
+کانادا:سرزمین برگ افرا
+مکزیک:سرزمین آزتک‌ها
+آمریکا:قاره کریستف کلمب
+آفریقا:قاره‌ای با صحرای بزرگ
+اروپا:قاره کهن
+آسیا:بزرگ‌ترین قاره
+اقیانوسیه:قاره استرالیا
+اقیانوس:پهنه عظیم آب
+قطب:سرزمین یخ و پنگوئن
+زانو:مفصل میان ران و ساق
+آرنج:مفصل میان بازو و ساعد
+مچ:اتصال دست به ساعد
+شانه:مفصل بالای بازو و ابزار آرایش مو
+انگشت:یکی از ده تای دست و پا
+ناخن:پوشش سخت سر انگشت
+ابرو:موی بالای چشم
+مژه:موی کنار پلک
+بینی:اندام بویایی
+لب:کناره دهان
+زبان:اندام چشایی و گفتار
+دندان:جویدنی در دهان
+گردن:رابط سر و تن
+کمر:میانه تن از پشت
+شکم:بخش پایین قفسه سینه
+پیشانی:بالای ابروها
+گونه:دو سوی صورت
+چانه:زیر لب پایین
+پاشنه:پشت کف پا
+ساق:میان زانو و مچ پا
+ران:بالای زانو
+بازو:میان شانه و آرنج
+جمجمه:استخوان سر
+دنده:استخوان قفسه سینه
+ماهیچه:بافت منقبض‌شونده
+عصب:رشته انتقال پیام مغز
+رگ:مجرای خون
+خون:مایع سرخ در رگ‌ها
+تنفس:دم و بازدم
+هضم:گوارش غذا
+معده:اندام هضم غذا زیر قفسه
+روده:لوله طولانی گوارش
+صفرا:ترشح کبد
+بینایی:حس چشم
+شنوایی:حس گوش
+بویایی:حس بینی
+چشایی:حس زبان
+لامسه:حس پوست
+پدر:والد مذکر
+مادر:بانوی پناه فرزندان
+برادر:هم‌خون پسر
+خواهر:هم‌خون دختر
+پسر:فرزند ذکور
+دختر:فرزند ماده
+عمو:برادر پدر
+دایی:برادر مادر
+خاله:خواهر مادر
+عمه:خواهر پدر
+نوه:فرزند فرزند
+همسر:شریک زندگی
+داماد:شوهر دختر
+عروس:همسر پسر برای خانواده
+فامیل:خویشاوندان
+همسایه:نزدیکِ خانه
+مهمان:اشخاص دعوت‌شده
+میز:وسیله تخت با چهار پایه
+صندلی:جای نشستن پایه‌دار
+تخت:جای خواب
+پرده:حایل پنجره
+آینه:بازتاب‌دهنده چهره
+چراغ:نورافشان خانه
+یخچال:نگه‌دارنده خنک خوراک
+اجاق:جای پخت
+قابلمه:ظرف خورشت‌پزی
+قاشق:ابزار خوردن سوپ
+چنگال:ابزار چندشاخه خوردن
+بشقاب:ظرف تخت غذا
+لیوان:ظرف نوشیدنی استوانه‌ای
+پارج:ظرف دسته‌دار آب
+کتری:ظرف جوشاندن آب
+سماور:آب‌جوش‌کن سنتی
+سینی:ظرف تخت حمل چای
+تابه:ظرف سرخ‌کردن
+دیگ:قابلمه بزرگ
+چاقو:ابزار برش تیز
+ملاقه:ابزار کشیدن سوپ
+جارو:پاک‌کننده کف
+بالش:تکیه‌گاه سر
+پتو:روپوش خواب
+تشک:زیرانداز خواب
+حیاط:فضای باز خانه
+پنجره:روزن نور
+در:ورودی اتاق
+سقف:بالای اتاق
+بام:روی خانه
+دیوار:حائل میان دو اتاق
+پله:گام نردبان
+اتاق:بخشی از خانه
+آشپزخانه:جای پخت‌وپز
+حمام:جای شست‌وشو
+کلید:بازکننده قفل
+قفل:بستن در
+کت:لباس بالاتنه رسمی
+شلوار:پوشش پا
+پیراهن:لباس بالاتنه نخی
+دامن:لباس زنانه‌ی کمری
+کفش:پوشش پا هنگام راه رفتن
+کلاه:پوشش سر
+جوراب:پوشش پا زیر کفش
+کمربند:بند کمر
+شال:پارچه‌ی دور گردن یا سر
+روسری:پوشش موی زنان
+چادر:پوشش بلند سنتی
+دستکش:پوشش دست
+کراوات:آویز رسمی یقه
+ژاکت:لباس بافتنی
+پالتو:لباس سنگین زمستان
+لباس:پوشاک
+مانتو:روپوش زنانه
+عینک:یاری‌دهنده چشم
+ساعت:وقت‌سنج مچی
+انگشتر:زیور انگشت
+گردنبند:زیور گردن
+گوشواره:آویز گوش
+چکش:ابزار کوبیدن میخ
+میخ:فلز نوک‌تیز
+پیچ:فلز مارپیچ
+اره:ابزار برنده‌ی دندانه‌دار
+تبر:ابزار شکستن هیزم
+بیل:ابزار خاک‌کنی
+کلنگ:ابزار کندن زمین سخت
+انبر:ابزار گرفتن آهن
+متر:ابزار اندازه‌گیری طول
+نردبان:وسیله‌ی بالا رفتن
+طناب:ریسمان ضخیم
+زنجیر:حلقه‌های متصل
+آچار:ابزار باز کردن مهره
+مته:ابزار سوراخ‌کردن
+رنده:ابزار صاف‌کردن چوب
+داس:ابزار درو
+خیش:وسیله شخم
+نجار:چوب‌کار
+خیاط:دوزنده‌ی لباس
+بنا:سازنده‌ی ساختمان
+رنگرز:رنگ‌کننده‌ی پارچه
+قصاب:گوشت‌فروش
+بقال:خواربارفروش
+چوپان:نگهبان گله
+ماهیگیر:صیاد ماهی
+باغبان:نگهدارنده‌ی باغ
+راننده:هدایت‌کننده‌ی خودرو
+سرباز:مدافع میهن
+پلیس:مأمور انتظامی
+دندانپزشک:درمانگر دندان
+دامپزشک:درمانگر حیوانات
+حسابدار:نگهدارنده‌ی دفاتر مالی
+منشی:دبیر اداری
+خبرنگار:گزارشگر خبر
+عکاس:ثبت‌کننده‌ی تصویر با دوربین
+نویسنده:پدیدآورنده‌ی کتاب
+شاعر:سراینده‌ی شعر
+خواننده:آوازه‌خوان
+استاد:مدرس دانشگاه
+دانشجو:شاگرد دانشگاه
+مربی:آموزش‌دهنده‌ی ورزشی
+کارگر:نیروی کارخانه
+کشاورز:پرورنده‌ی محصول
+جزیره:خشکی احاطه‌شده با آب
+دره:فرورفتگی میان دو کوه
+تپه:بلندی کوچک
+غار:حفره‌ی کوهی
+چشمه:آب جوشان از زمین
+دریاچه:آب محصور در خشکی
+صخره:سنگ بزرگ کوه
+ساحل:کناره‌ی دریا
+آتشفشان:کوه مواد مذاب
+بیابان:دشت خشک و بی‌آب
+واحه:سبزه‌زار میان بیابان
+شبنم:قطره‌ی صبحگاهی روی برگ
+مه:ابر نزدیک زمین
+تگرگ:بارش دانه‌ی یخ
+سیل:طغیان آب
+دشت:زمین هموار و گسترده
+مرز:خط جدایی کشورها
+نقشه:تصویر زمین روی کاغذ
+گردباد:باد چرخان
+چنار:درخت تنومند ایرانی
+سرو:درخت همیشه‌سبز و راست
+بید:درخت شاخه‌ی آویخته
+کاج:درخت سوزنی‌برگ
+بلوط:درخت جنگل زاگرس
+گردو:میوه‌ی مغزدار پوست‌سخت
+فندق:مغز ریز شمال
+بنفشه:گل کوچک بنفش
+یاس:گل سفید خوش‌بو
+شقایق:گل سرخ دشت
+سنبل:گل بهاری خوش‌بو
+گلایل:گل بلند رنگارنگ
+نسترن:گل سفید بوته‌ای
+مریم:مادر مسیح
+میخک:گل ادویه‌ای
+ارکیده:گل زیبا و گران
+نیلوفر:گل آبی روی آب
+پونه:سبزی معطر کوهی
+اسطخودوس:گیاه دارویی بنفش
+بابونه:گیاه دمنوش آرام‌بخش
+گاو:دام شیرده
+بز:دام شاخ‌دار کوهی
+میش:ماده‌ی گوسفند
+گوسفند:دام پشمی
+الاغ:چهارپای باربر
+قاطر:بچه‌ی اسب و الاغ
+مرغ:پرنده‌ی تخم‌گذار خانگی
+کلاغ:پرنده‌ی سیاه
+گنجشک:پرنده‌ی کوچک شهری
+چکاوک:پرنده‌ی آوازخوان دشت
+پلیکان:پرنده‌ی منقار بزرگ
+فلامینگو:پرنده‌ی صورتی بلندپا
+طوطی:پرنده‌ی تقلیدکننده‌ی صدا
+کفتار:لاشه‌خوار خندان
+شغال:حیوان زوزه‌کش
+خفاش:پستاندار پرنده‌ی شب
+موش:جونده‌ی ریز
+گربه:هم‌بازی موش
+سگ:وفادارترین حیوان
+سمور:جانور پوست گرانبها
+گراز:خوک وحشی
+میمون:نزدیک‌ترین جانور به انسان
+گوریل:بزرگ‌ترین میمون
+ببر:گربه‌ی بزرگ راه‌راه
+غزال:آهوی زیبا
+مگس:حشره‌ی مزاحم
+پشه:حشره‌ی نیش‌زن شب
+جیرجیرک:حشره‌ی آوازخوان
+زرشک:میوه‌ی قرمز ترش پلو
+سماق:ادویه‌ی ترش کباب
+آبگوشت:خوراک دیزی
+کشک:فراورده‌ی خشک ماست
+ترشی:سبزیهای ترشیده
+سیرابی:خوراک احشا
+حلیم:خوراک گندم و گوشت
+سمنو:خوراک نوروزی گندم جوانه‌زده
+فرنی:دسر شیر و آرد برنج
+زولبیا:شیرینی سرخ‌شده‌ی ماه رمضان
+نخودچی:تنقلات نخود
+کشمش:انگور خشک‌شده
+خرمالو:میوه‌ی نارنجی شیرین
+انبه:میوه‌ی گرمسیری زرد
+موز:میوه‌ی هلالی زرد
+آناناس:میوه‌ی خاردار گرمسیری
+کیوی:میوه‌ی سبز با دانه‌ی ریز
+نارگیل:میوه‌ی پوست‌سخت گرمسیری
+خامه:چربی روی شیر
+سرکه:ترشی مایع
+روغن:چربی پخت‌وپز
+نمک:چاشنی سفید
+شکر:شیرین‌کننده‌ی سفید
+روشن:ضد تاریک
+تاریک:ضد روشن
+بزرگ:ضد کوچک
+کوچک:ضد بزرگ
+بلند:ضد کوتاه
+کوتاه:ضد بلند
+سرد:ضد گرم
+گرم:ضد سرد
+تازه:ضد کهنه
+کهنه:ضد نو
+نو:ضد کهنه
+سبک:ضد سنگین
+سنگین:ضد سبک
+تند:ضد کند
+کند:ضد تند
+دور:ضد نزدیک
+نزدیک:ضد دور
+خالی:ضد پر
+زیبا:ضد زشت
+زشت:ضد زیبا
+دانا:ضد نادان
+نادان:ضد دانا
+ثروتمند:ضد فقیر
+فقیر:ضد ثروتمند
+شاد:ضد غمگین
+غمگین:ضد شاد
+راست:ضد دروغ
+دروغ:ضد راست
+جنگ:ضد صلح
+صلح:ضد جنگ
+روز:ضد شب
+تاج:نماد سلطنت
+جام:ظرف شراب جمشید
+سکه:پول فلزی
+شمشیر:سلاح تیغه‌دار
+کمان:ابزار تیراندازی
+نیزه:سلاح بلند نوک‌تیز
+سپر:حفاظ جنگجو
+زره:پوشش فلزی جنگجو
+کتیبه:نوشته‌ی سنگی باستانی
+قلعه:دژ مستحکم
+دژ:قلعه‌ی نظامی
+ناصرخسرو:شاعر سفرنامه‌نویس قبادیانی
+عبید:سراینده‌ی موش و گربه
+وحشی:شاعر بافق
+صائب:شاعر سبک هندی
+قاآنی:شاعر قصیده‌سرای قاجار
+عراقی:شاعر لمعات
+کلیله:… و دمنه
+سفرنامه:شرح مسافرت
+داستان:قصه
+رمان:داستان بلند
+مقاله:نوشته‌ی کوتاه پژوهشی
+شعر:کلام موزون
+نثر:سخن غیرموزون
+قافیه:هم‌صدایی پایان مصراع‌ها
+مصراع:نیمه‌ی بیت
+بیت:دو مصراع شعر
+بوکس:مشت‌زنی
+اسکی:سرخوردن روی برف
+تیراندازی:ورزش هدف‌گیری
+منچ:بازی تخته‌ای تاس
+پازل:تصویر قطعه‌قطعه
+تاس:مکعب شانس
+ورق:برگ کاغذ یا کارت بازی
+زمان:گذر لحظه‌ها
+مکان:جا
+فضا:بیکران کیهان
+ثانیه:شصتم دقیقه
+دقیقه:شصت ثانیه
+هفته:هفت روز
+سال:دوازده ماه
+فصل:یک چهارم سال
+صبح:آغاز روز
+ظهر:میانه‌ی روز
+شب:پس از غروب
+فردا:روز بعد
+دیروز:روز پیش
+امروز:همین روز
+یک:نخستین عدد
+دو:عدد بعد از یک
+سه:عدد گوشه‌های مثلث
+چهار:تعداد فصل‌ها
+پنج:تعداد انگشتان یک دست
+شش:عدد وجه‌های تاس
+هفت:تعداد سین‌های سفره نوروز
+هشت:عدد بعد از هفت
+نه:عدد قبل از ده
+ده:تعداد انگشتان دو دست
+دوازده:تعداد ماه‌های سال
+صد:ده بار ده
+هزار:ده بار صد`;
+const BANK=RAW.replace(/ي/g,'ی').replace(/ك/g,'ک').split('\n').map(l=>{const[w,k]=l.split(':');return{w:w.trim(),k:(k||'').trim()}}).filter(function(o){return o.w&&o.k&&!this.has(o.w)&&!!this.add(o.w)},new Set());
+let N=50;const LET='ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیآئ',$=s=>document.querySelector(s),fa=n=>n.toLocaleString('fa-IR');
+let G,W,L,el,sel,hl=[],S=34;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function gen(list,N=50){
+  const g=Array.from({length:N},()=>Array(N).fill(null)),ws=[],cells=[];
+  let mnR=N,mxR=0,mnC=N,mxC=0;
+  const at=(a,b)=>a<0||b<0||a>=N||b>=N?null:g[a][b];
+  const ok=(w,r,c,d)=>{
+    const n=w.length,dr=d,dc=1-d,er=r+dr*(n-1),ec=c+dc*(n-1);
+    if(r<0||c<0||er>=N||ec>=N||at(r-dr,c-dc)||at(er+dr,ec+dc))return -1;
+    let x=0;
+    for(let i=0;i<n;i++){
+      const a=r+dr*i,b=c+dc*i,q=g[a][b];
+      if(q){if(q.ch!==w[i]||q.w[d]!=null)return -1;x++}
+      else if(at(a+dc,b+dr)||at(a-dc,b-dr))return -1;
+    }
+    return x;
+  };
+  const put=(o,r,c,d)=>{
+    const idx=ws.length;ws.push({...o,r,c,d,i:idx});
+    mnR=Math.min(mnR,r);mnC=Math.min(mnC,c);mxR=Math.max(mxR,r+d*(o.w.length-1));mxC=Math.max(mxC,c+(1-d)*(o.w.length-1));
+    for(let i=0;i<o.w.length;i++){
+      const a=r+d*i,b=c+(1-d)*i;let q=g[a][b];
+      if(!q){q=g[a][b]={ch:o.w[i],w:[null,null],u:''};cells.push([a,b])}
+      q.w[d]=idx;
+    }
+  };
+  const words=shuffle(list.map(o=>({...o})));
+  words.forEach(o=>o.j=o.w.length+(Math.random()-.5)*3);words.sort((a,b)=>b.j-a.j);
+  put(words[0],N>9?18+(Math.random()*14|0):Math.random()*N|0,(N-words[0].w.length)>>1,0);words[0].used=1;
+  for(let p=0;p<3;p++)for(const o of words){
+    if(o.used)continue;
+    let best=null,bs=0;
+    for(let i=0;i<o.w.length;i++)for(const[a,b]of cells){
+      if(g[a][b].ch!==o.w[i])continue;
+      for(let d=0;d<2;d++){
+        const r=a-d*i,c=b-(1-d)*i,x=ok(o.w,r,c,d);
+        if(x>0){
+          const e=o.w.length-1,gr=Math.max(mxR,r+d*e)-Math.min(mnR,r)+Math.max(mxC,c+(1-d)*e)-Math.min(mnC,c)-(mxR-mnR+mxC-mnC);
+          const s=x*2-gr*.7+Math.random()*.6;
+          if(!best||s>bs){bs=s;best=[r,c,d]}
+        }
+      }
+    }
+    if(best){put(o,...best);o.used=1}
+  }
+  const dr=((N-(mxR-mnR+1))>>1)-mnR,dc=((N-(mxC-mnC+1))>>1)-mnC;
+  const old=cells.map(p=>[p[0],p[1],g[p[0]][p[1]]]);
+  old.forEach(([a,b])=>g[a][b]=null);
+  old.forEach(([a,b,q])=>g[a+dr][b+dc]=q);
+  cells.forEach(p=>{p[0]+=dr;p[1]+=dc});
+  ws.forEach(w=>{w.r+=dr;w.c+=dc});
+  const st={};let n=0;
+  ws.slice().sort((a,b)=>a.r-b.r||a.c-b.c).forEach(w=>{const k=w.r*N+w.c;if(!st[k])st[k]=++n;w.n=st[k];g[w.r][w.c].n=w.n});
+  return{g,ws,cells,sc:ws.length*cells.length/((mxR-mnR+1)*(mxC-mnC+1))};
+}
+
+const LEVELS=500;
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const poolOf=n=>Math.round(16+104*(n-1)/(LEVELS-1));
+let ORD=null;
+function genLevel(n){
+  const orig=Math.random;
+  try{
+    if(!ORD){Math.random=mulberry(2024);ORD=shuffle(BANK.slice())}
+    let off=0;for(let k=1;k<n;k++)off+=poolOf(k);
+    const list=Array.from({length:poolOf(n)},(_,i)=>ORD[(off+i)%ORD.length]);
+    Math.random=mulberry(n*7919+13);let best=null;
+    for(let t=0;t<6;t++){const x=gen(list);if(!best||x.sc>best.sc)best=x}
+    return best;
+  }finally{Math.random=orig}
+}
+function rebuild(ws){
+  const g=Array.from({length:N},()=>Array(N).fill(null)),cells=[];
+  ws.forEach((o,idx)=>{
+    o.i=idx;
+    for(let i=0;i<o.w.length;i++){
+      const a=o.r+o.d*i,b=o.c+(1-o.d)*i;let q=g[a][b];
+      if(!q){q=g[a][b]={ch:o.w[i],w:[null,null],u:''};cells.push([a,b])}
+      q.w[o.d]=idx;
+    }
+    g[o.r][o.c].n=o.n;
+  });
+  return{g,ws,cells};
+}
+function save(){
+  if(mini)return;
+  try{
+    const u={};
+    L.forEach(([a,b])=>{if(G[a][b].u)u[a*N+b]=G[a][b].u});
+    if(Object.keys(u).length)localStorage.setItem('cwfa-p'+lvl,JSON.stringify({ws:W,u,sel}));else localStorage.removeItem('cwfa-p'+lvl);
+  }catch(e){}
+}
+function newGame(sv){
+  $('#ct').textContent='در حال ساخت جدول…';
+  setTimeout(()=>{
+    const best=sv?rebuild(sv.ws):mini?genMini():genLevel(lvl);
+    G=best.g;W=best.ws;L=best.cells;
+    const gr=$('#grid'),fr=document.createDocumentFragment();el=[];
+    for(let r=0;r<N;r++){el[r]=[];for(let c=0;c<N;c++){
+      const q=G[r][c],d=document.createElement('div');
+      if(q){d.className='c';d.dataset.r=r;d.dataset.c=c;d.innerHTML=(q.n?`<i>${fa(q.n)}</i>`:'')+'<b></b>'}
+      else d.className='x';
+      el[r][c]=d;fr.append(d);
+    }}
+    gr.innerHTML='';gr.append(fr);hl=[];
+    const mk=d=>W.filter(w=>w.d===d).sort((a,b)=>a.n-b.n).map(w=>`<li data-i="${w.i}"><em>${fa(w.n)}</em><span>${w.k} <small>(${fa(w.w.length)} حرف)</small></span></li>`).join('');
+    $('#sheet').innerHTML=`<section><h3>افقی</h3><ol>${mk(0)}</ol></section><section><h3>عمودی</h3><ol>${mk(1)}</ol></section>`;
+    $('#sheet').classList.remove('open');
+    const f=W.reduce((a,b)=>b.n<a.n?b:a);
+    sel={r:f.r,c:f.c,d:f.d};
+    if(sv){
+      L.forEach(([a,b])=>{const u=sv.u&&sv.u[a*N+b];if(u&&LET.includes(u)){G[a][b].u=u;show(a,b)}});
+      const s=sv.sel;
+      if(s&&G[s.r]&&G[s.r][s.c]&&G[s.r][s.c].w[s.d]!=null)sel={r:s.r,c:s.c,d:s.d};
+    }
+    stat();paint(true);
+  },30);
+}
+
+const cw=()=>W[G[sel.r][sel.c].w[sel.d]];
+const cellsOf=w=>Array.from({length:w.w.length},(_,i)=>[w.r+w.d*i,w.c+(1-w.d)*i]);
+
+function paint(center){
+  if(document.activeElement!==inp)focusInp();
+  hl.forEach(([a,b])=>el[a][b].classList.remove('hl','cur'));
+  const w=cw();hl=cellsOf(w);
+  hl.forEach(([a,b])=>el[a][b].classList.add('hl'));
+  el[sel.r][sel.c].classList.add('cur');
+  $('#cn').textContent=fa(w.n)+(w.d?' عمودی':' افقی');
+  $('#ct').textContent=w.k+' ('+fa(w.w.length)+' حرف)';
+  document.querySelectorAll('#sheet li.on').forEach(x=>x.classList.remove('on'));
+  const li=$(`#sheet li[data-i="${w.i}"]`);if(li)li.classList.add('on');
+  el[sel.r][sel.c].scrollIntoView({block:center?'center':'nearest',inline:center?'center':'nearest'});
+}
+
+function show(a,b){const q=G[a][b],d=el[a][b];clearTimeout(q.t);d.classList.remove('wrong','good','bad');d.querySelector('b').textContent=q.u}
+function flash(a,b,good){const q=G[a][b],d=el[a][b];d.classList.add(good?'good':'bad');q.t=setTimeout(()=>d.classList.remove('good','bad'),3000)}
+
+function won(){return $('#win').classList.contains('show')}
+function sig(ws){let h=2166136261;const s=ws.map(o=>o.w+o.r+','+o.c+o.d).sort().join('|');for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(36)+s.length.toString(36)}
+function hist(){try{return new Set(JSON.parse(localStorage.getItem('cwfa-h')||'[]'))}catch(e){return new Set()}}
+function markSeen(h){try{localStorage.setItem('cwfa-h',JSON.stringify([...hist().add(h)].slice(-4000)))}catch(e){}}
+function stat(){
+  save();
+  if(L.every(([a,b])=>G[a][b].u===G[a][b].ch)){$('#wm').textContent='همهٔ '+fa(L.length)+' خانه را درست پر کردی و جدول را کامل حل کردی.';$('#wm').textContent='مرحله '+fa(lvl)+' را کامل کردی. همه‌ی '+fa(L.length)+' خانه درست پر شد.';if(mini){$('#wm').textContent='جدولک را حل کردی!';$('#nx').textContent='جدولک جدید';$('#nx').style.display='';$('#al').textContent='بازگشت'}else{$('#nx').textContent='مرحله بعد';$('#nx').style.display=lvl<LEVELS?'':'none';$('#al').textContent='فهرست مراحل';done()}$('#win').classList.add('show')}
+  const f=L.filter(([a,b])=>G[a][b].u).length;
+  $('#pr').textContent=(mini?'جدولک':'مرحله '+fa(lvl))+' · '+fa(f)+' از '+fa(L.length)+' خانه';
+  if(0&&L.every(([a,b])=>G[a][b].u===G[a][b].ch))$('#ct').textContent='آفرین! جدول کامل شد. برای بازی تازه «جدول جدید» را بزن.';
+}
+
+function step(k){
+  const w=cw(),i=(sel.d?sel.r-w.r:sel.c-w.c)+k;
+  if(i<0||i>=w.w.length)return;
+  const[a,b]=cellsOf(w)[i];sel.r=a;sel.c=b;paint();
+}
+function type(ch){if(won())return;const q=G[sel.r][sel.c];q.u=ch;show(sel.r,sel.c);flash(sel.r,sel.c,ch===q.ch);step(1);stat()}
+function back(){if(won())return;
+  const q=G[sel.r][sel.c];
+  if(!q.u)step(-1);
+  const p=G[sel.r][sel.c];p.u='';show(sel.r,sel.c);paint();stat();
+}
+function nextWord(k){
+  const o=W.slice().sort((a,b)=>a.n-b.n||a.d-b.d),i=o.indexOf(cw()),w=o[(i+k+o.length)%o.length];
+  const c=cellsOf(w).find(([a,b])=>!G[a][b].u)||[w.r,w.c];
+  sel={r:c[0],c:c[1],d:w.d};paint(true);
+}
+function move(k){
+  const dv={ArrowRight:[0,-1],ArrowLeft:[0,1],ArrowUp:[-1,0],ArrowDown:[1,0]}[k];
+  let a=sel.r+dv[0],b=sel.c+dv[1];
+  while(a>=0&&b>=0&&a<N&&b<N){
+    const q=G[a][b];
+    if(q){const ax=dv[0]?1:0;sel={r:a,c:b,d:q.w[ax]!=null?ax:1-ax};paint();return}
+    a+=dv[0];b+=dv[1];
+  }
+}
+function zoom(k){S=Math.max(22,Math.min(56,S+k));try{localStorage.setItem('cwfa-z',S)}catch(e){}$('#gw').style.setProperty('--s',S+'px');document.documentElement.style.setProperty('--s',S+'px');el[sel.r][sel.c].scrollIntoView({block:'center',inline:'center'})}
+
+$('#grid').onclick=e=>{
+  const t=e.target.closest('.c');if(!t)return;
+  const r=+t.dataset.r,c=+t.dataset.c,q=G[r][c];let d=sel.d;
+  if(sel.r===r&&sel.c===c){if(q.w[1-d]!=null)d=1-d}
+  else if(q.w[d]==null)d=1-d;
+  sel={r,c,d};paint();
+};
+$('#sheet').onclick=e=>{
+  const li=e.target.closest('li');if(!li)return;
+  const w=W[+li.dataset.i],c=cellsOf(w).find(([a,b])=>!G[a][b].u)||[w.r,w.c];
+  sel={r:c[0],c:c[1],d:w.d};$('#sheet').classList.remove('open');paint(true);
+};
+document.onkeydown=e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey||!G||!lvl||e.target.tagName==='BUTTON')return;
+  const k=e.key;
+  if(k==='Backspace'){back();e.preventDefault()}
+  else if(k.startsWith('Arrow')){move(k);e.preventDefault()}
+  else if(k==='Tab'||k==='Enter'){nextWord(e.shiftKey?-1:1);e.preventDefault()}
+};
+const inp=$('#inp'),SENT='\u200b';
+const rearm=()=>{inp.value=SENT;inp.setSelectionRange(1,1)};
+function focusInp(){inp.focus({preventScroll:true});rearm()}
+inp.addEventListener('input',()=>{
+  const v=inp.value;
+  if(G&&lvl){
+    if(!v)back();
+    else for(const x of v.replace(SENT,'').replace(/ي/g,'ی').replace(/ك/g,'ک'))if(LET.includes(x))type(x);
+  }
+  rearm();
+});
+document.querySelectorAll('header button,#bar button').forEach(b=>b.onmousedown=e=>e.preventDefault());
+if(window.visualViewport){
+  const pt=parseFloat(getComputedStyle(document.documentElement).paddingTop)||0,vv=visualViewport;
+  const f=()=>{
+    if(vv.height<innerHeight-80)document.documentElement.style.setProperty('--vh',(vv.height-pt)+'px');
+    else document.documentElement.style.removeProperty('--vh');
+    scrollTo(0,0);
+  };
+  vv.addEventListener('resize',f);vv.addEventListener('scroll',f);
+}
+let LV={done:{},cur:1},lvl=0,mini=false,scr='intro';
+const ls=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const okSave=j=>j&&Array.isArray(j.ws)&&j.ws.length>3&&j.ws.every(o=>o&&typeof o.w==='string'&&typeof o.k==='string'&&Number.isInteger(o.n)&&(o.d===0||o.d===1)&&Number.isInteger(o.r)&&Number.isInteger(o.c)&&o.r>=0&&o.c>=0&&o.r+o.d*(o.w.length-1)<N&&o.c+(1-o.d)*(o.w.length-1)<N);
+try{
+  const z=+ls('cwfa-z');
+  if(z>=22&&z<=56){S=z;document.documentElement.style.setProperty('--s',S+'px')}
+  const j=JSON.parse(ls('cwfa-lv')||'null');
+  if(j&&j.done&&typeof j.done==='object')LV={done:j.done,cur:+j.cur||1};
+}catch(e){}
+function done(){
+  LV.done[lvl]=1;LV.cur=Math.min(lvl+1,LEVELS);
+  try{localStorage.setItem('cwfa-lv',JSON.stringify(LV));localStorage.removeItem('cwfa-p'+lvl)}catch(e){}
+}
+function openLevel(n){
+  if(mini)leaveMini();scr='game';nav();
+  lvl=n;$('#win').classList.remove('show');$('#app').classList.remove('home');
+  let sv=null;
+  try{const j=JSON.parse(ls('cwfa-p'+n)||'null');if(okSave(j))sv=j}catch(e){}
+  newGame(sv);
+}
+function nextLevel(){if(mini)openMini();else openLevel(Math.min(lvl+1,LEVELS))}
+function resume(){let n=LV.cur||1;while(n<LEVELS&&LV.done[n])n++;openLevel(n)}
+function goHome(){
+  const last=lvl;if(mini)leaveMini();scr='home';lvl=0;$('#win').classList.remove('show');inp.blur();
+  renderHome();$('#app').classList.add('home');
+  const b=$('#home button[data-n="'+last+'"]');if(b)b.scrollIntoView({block:'center'});
+}
+function renderHome(){
+  $('#hp').textContent=fa(Object.keys(LV.done).length)+' از '+fa(LEVELS)+' مرحله';
+  let h='';
+  for(let b=0;b<LEVELS/50;b++){
+    h+=`<h3>مراحل ${fa(b*50+1)} تا ${fa(b*50+50)}</h3><div class="lv">`;
+    for(let n=b*50+1;n<=b*50+50;n++){
+      const c=LV.done[n]?'d':ls('cwfa-p'+n)?'p':'';
+      h+=`<button class="${c}" data-n="${n}">${fa(n)}</button>`;
+    }
+    h+='</div>';
+  }
+  $('#home').innerHTML=h;
+}
+$('#home').onclick=e=>{const b=e.target.closest('button');if(b)openLevel(+b.dataset.n)};
+let it=0;
+function nav(){try{history.pushState({s:1},'')}catch(e){}}
+function hideIntro(){const i=$('#intro');i.classList.add('out');clearTimeout(it);it=setTimeout(()=>{i.style.display='none'},450)}
+function toIntro(){scr='intro';clearTimeout(it);inp.blur();const i=$('#intro');i.style.display='';void i.offsetWidth;i.classList.remove('out')}
+function leaveMini(){mini=false;N=50;$('#grid').style.removeProperty('--n');document.documentElement.style.setProperty('--s',S+'px');$('#app').classList.remove('mini')}
+function genMini(){
+  const pool=BANK.filter(o=>o.w.length>=3&&o.w.length<=5);let best=null,bs=0;
+  for(let t=0;t<60;t++){
+    const x=gen(shuffle(pool.slice()).slice(0,50),5),s=x.cells.length+x.ws.length*.5;
+    if(!best||s>bs){best=x;bs=s}
+  }
+  return best;
+}
+function openMini(){
+  mini=true;lvl=-1;N=5;scr='game';nav();hideIntro();
+  $('#grid').style.setProperty('--n',5);
+  document.documentElement.style.setProperty('--s',Math.min(72,Math.floor((Math.min(innerWidth,520)-28)/5))+'px');
+  $('#win').classList.remove('show');$('#app').classList.remove('home');$('#app').classList.add('mini');
+  newGame(null);
+}
+function goBack(){
+  if(scr==='game'){if(mini){goHome();toIntro()}else goHome()}
+  else if(scr==='home')toIntro();
+}
+addEventListener('popstate',()=>goBack());
+$('.mg').innerHTML=[...'1111110100111111010111101'].map(c=>'<u'+(c==='1'?' class="h"':'')+'></u>').join('');
+function enter(){scr='home';nav();const i=$('#intro');i.classList.add('out');setTimeout(()=>{i.style.display='none'},450)}
+{const d=Object.keys(LV.done).length;$('#ip').textContent=d?'تا اینجا '+fa(d)+' مرحله را حل کرده‌ای':''}
+renderHome();
+</script>
+</body>
+</html>
